@@ -4,6 +4,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{4AF935
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{E47E7FD0-318F-40E4-A1DC-70F1E799A97A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{D9E09452-0962-446F-BB3D-949B552160E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepositoryContracts", "RepositoryContracts\RepositoryContracts.csproj", "{D0E8DBE0-D340-4E0E-9444-94A9DC42EE2D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -11,11 +15,16 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E47E7FD0-318F-40E4-A1DC-70F1E799A97A} = {4AF935E4-9981-4276-9F17-D2993E561C4F}
+		{D0E8DBE0-D340-4E0E-9444-94A9DC42EE2D} = {4AF935E4-9981-4276-9F17-D2993E561C4F}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{E47E7FD0-318F-40E4-A1DC-70F1E799A97A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E47E7FD0-318F-40E4-A1DC-70F1E799A97A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E47E7FD0-318F-40E4-A1DC-70F1E799A97A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E47E7FD0-318F-40E4-A1DC-70F1E799A97A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0E8DBE0-D340-4E0E-9444-94A9DC42EE2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0E8DBE0-D340-4E0E-9444-94A9DC42EE2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0E8DBE0-D340-4E0E-9444-94A9DC42EE2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0E8DBE0-D340-4E0E-9444-94A9DC42EE2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
