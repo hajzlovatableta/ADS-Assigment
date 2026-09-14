@@ -2,9 +2,11 @@ namespace Entities;
 
 public class Comment
 {
-    public int Id { set; get; }
-    public string Body { set; get; }
-    public int UserId { set; get; }
-    public int PostId { set; get; }
+    public int Id { get; set; }
+    public string Body { get; set; }
+    public int UserId { get; set; }
+    public int PostId { get; set; }
     
+    public HashSet<int> LikedCommentIds { get; set; } = new();
+    public HashSet<int> DislikedCommentIds { get; set; } = new();
 }
