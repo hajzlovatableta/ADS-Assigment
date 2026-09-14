@@ -1,0 +1,21 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{4AF935E4-9981-4276-9F17-D2993E561C4F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities", "Entities\Entities.csproj", "{E47E7FD0-318F-40E4-A1DC-70F1E799A97A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E47E7FD0-318F-40E4-A1DC-70F1E799A97A} = {4AF935E4-9981-4276-9F17-D2993E561C4F}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E47E7FD0-318F-40E4-A1DC-70F1E799A97A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E47E7FD0-318F-40E4-A1DC-70F1E799A97A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E47E7FD0-318F-40E4-A1DC-70F1E799A97A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E47E7FD0-318F-40E4-A1DC-70F1E799A97A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
