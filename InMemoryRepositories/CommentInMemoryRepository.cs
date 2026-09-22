@@ -1,91 +1,58 @@
 using Entities;
-using RepositaryContracts;
+using RepositoryContracts;
 
 namespace InMemoryRepositories;
 
 public class CommentInMemoryRepository : ICommentRepository
 {
-    private List<Comment> comments = new();
+    private readonly List<Comment> comments = new();
 
     public CommentInMemoryRepository()
     {
-        AddDummyData();
+        comments.Add(new Comment { Id = 1, Body = "Welcome!", UserId = 2, PostId = 1 });
+        comments.Add(new Comment { Id = 2, Body = "Great tip, thanks.", UserId = 1, PostId = 2 });
+        comments.Add(new Comment { Id = 3, Body = "Use the constructor.", UserId = 1, PostId = 3 });
     }
-        
+
     public Task<Comment> AddAsync(Comment comment)
     {
-        comment.Id = comments.Any()
-            ? comments.Max(p => p.Id) + 1
-            : 1;
+        comment.Id = comments.Any() ? comments.Max(c => c.Id) + 1 : 1;
         comments.Add(comment);
         return Task.FromResult(comment);
     }
 
     public Task UpdateAsync(Comment comment)
     {
-        Comment? existingComment = comments.SingleOrDefault(p => p.Id == comment.Id);
-        if (existingComment is null)
-        {
-            throw new InvalidOperationException(
-                $"Comment with ID '{comment.Id}' not found");
-        }
+        Comment? existing = comments.SingleOrDefault(c => c.Id == comment.Id);
+        if (existing is null)
+            throw new InvalidOperationException($"Comment with ID '{comment.Id}' not found");
 
-        comments.Remove(existingComment);
+        comments.Remove(existing);
         comments.Add(comment);
-
         return Task.CompletedTask;
     }
 
     public Task DeleteAsync(int id)
     {
-        Comment? commentToRemove = comments.SingleOrDefault(p => p.Id == id);
-        if (commentToRemove is null)
-        {
-            throw new InvalidOperationException(
-                $"Comment with ID '{id}' not found");
-        }
+        Comment? toRemove = comments.SingleOrDefault(c => c.Id == id);
+        if (toRemove is null)
+            throw new InvalidOperationException($"Comment with ID '{id}' not found");
 
-        comments.Remove(commentToRemove);
+        comments.Remove(toRemove);
         return Task.CompletedTask;
     }
 
-    public Task<Comment> GetByIdAsync(int id)
+    public Task<Comment> GetSingleAsync(int id)
     {
-        Comment? comment = comments.SingleOrDefault(p => p.Id == id);
+        Comment? comment = comments.SingleOrDefault(c => c.Id == id);
         if (comment is null)
-        {
-            throw new InvalidOperationException(
-                $"Comment with ID '{id}' not found");
-        }
+            throw new InvalidOperationException($"Comment with ID '{id}' not found");
 
         return Task.FromResult(comment);
     }
 
-    public IQueryable<Comment> GetAll()
+    public IQueryable<Comment> GetMany()
     {
         return comments.AsQueryable();
-    }
-    
-    
-    private void AddDummyData()
-    {
-        comments.Add(new Comment
-        {
-            Id = 1, Body = "Great first post!", UserId = 2, PostId = 1,
-            LikedCommentIds = new HashSet<int> { 3 },
-            DislikedCommentIds = new HashSet<int>()
-        });
-        comments.Add(new Comment
-        {
-            Id = 2, Body = "Thanks for the tip.", UserId = 3, PostId = 2,
-            LikedCommentIds = new HashSet<int>(),
-            DislikedCommentIds = new HashSet<int>()
-        });
-        comments.Add(new Comment
-        {
-            Id = 3, Body = "I had the same question.", UserId = 1, PostId = 3,
-            LikedCommentIds = new HashSet<int>(),
-            DislikedCommentIds = new HashSet<int>()
-        });
     }
 }

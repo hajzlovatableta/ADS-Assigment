@@ -2,8 +2,7 @@ namespace Entities;
 
 public class User
 {
-    public int Id { set; get; }
-    public string Username { set; get; }
-    public string Password { set; get; }
-    
+    public int Id { get; set; }
+    public string UserName { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
 }

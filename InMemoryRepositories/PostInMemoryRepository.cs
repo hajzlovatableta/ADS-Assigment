@@ -1,5 +1,5 @@
 using Entities;
-using RepositaryContracts;
+using RepositoryContracts;
 
 namespace InMemoryRepositories;
 
@@ -11,7 +11,7 @@ public class PostInMemoryRepository : IPostRepository
     {
         AddDummyData();
     }
-        
+
     public Task<Post> AddAsync(Post post)
     {
         post.Id = posts.Any()
@@ -49,7 +49,7 @@ public class PostInMemoryRepository : IPostRepository
         return Task.CompletedTask;
     }
 
-    public Task<Post> GetByIdAsync(int id)
+    public Task<Post> GetSingleAsync(int id)
     {
         Post? post = posts.SingleOrDefault(p => p.Id == id);
         if (post is null)
@@ -61,19 +61,18 @@ public class PostInMemoryRepository : IPostRepository
         return Task.FromResult(post);
     }
 
-    public IQueryable<Post> GetAll()
+    public IQueryable<Post> GetMany()
     {
         return posts.AsQueryable();
     }
-    
-    
+
     private void AddDummyData()
     {
         posts.Add(new Post
         {
             Id = 1, Title = "Welcome to the forum", Body = "This is the very first post.",
             UserId = 1,
-            LikedPostIds = new HashSet<int> { 2, 3 },   
+            LikedPostIds = new HashSet<int> { 2, 3 },
             DislikedPostIds = new HashSet<int>()
         });
         posts.Add(new Post
