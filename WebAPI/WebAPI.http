@@ -1,0 +1,43 @@
+@WebAPI_HostAddress = http://localhost:5000
+
+### Create user
+POST {{WebAPI_HostAddress}}/users
+Content-Type: application/json
+
+{ "userName": "anna", "password": "1234" }
+
+### Get users (filter)
+GET {{WebAPI_HostAddress}}/users?userName=an
+
+### Create post
+POST {{WebAPI_HostAddress}}/posts
+Content-Type: application/json
+
+{ "title": "Hello world", "body": "My first post", "userId": 1 }
+
+### Get posts (filters)
+GET {{WebAPI_HostAddress}}/posts?title=hello&userName=anna
+
+### Get single post with comments
+GET {{WebAPI_HostAddress}}/posts/1?includeComments=true
+
+### Create comment
+POST {{WebAPI_HostAddress}}/comments
+Content-Type: application/json
+
+{ "body": "Nice post!", "userId": 1, "postId": 1 }
+
+### Get comments for a post
+GET {{WebAPI_HostAddress}}/posts/1/comments
+
+### Get comments (filters)
+GET {{WebAPI_HostAddress}}/comments?userName=anna&postId=1
+
+### Update post
+PUT {{WebAPI_HostAddress}}/posts/1
+Content-Type: application/json
+
+{ "title": "Hello again", "body": "Edited" }
+
+### Delete comment
+DELETE {{WebAPI_HostAddress}}/comments/1
