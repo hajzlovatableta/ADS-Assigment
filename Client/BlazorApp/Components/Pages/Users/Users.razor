@@ -1,0 +1,61 @@
+@page "/users"
+@inject IUserService UserService
+
+<PageTitle>Users</PageTitle>
+
+<h1>Users</h1>
+
+<div class="filter">
+    <input type="text" placeholder="Search by user name" @bind="search"/>
+    <button @onclick="LoadAsync">Search</button>
+</div>
+
+@if (!string.IsNullOrEmpty(errorLabel))
+{
+    <p class="error">@errorLabel</p>
+}
+else if (users is null)
+{
+    <p>Loading...</p>
+}
+else if (users.Count == 0)
+{
+    <p>No users found.</p>
+}
+else
+{
+    <ul class="list">
+        @foreach (UserDto user in users)
+        {
+            <li class="card">
+                <strong>@user.UserName</strong> <span class="muted">(id @user.Id)</span>
+                <a href="/posts?author=@Uri.EscapeDataString(user.UserName)">see posts</a>
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    private List<UserDto>? users;
+    private string search = "";
+    private string errorLabel = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadAsync();
+    }
+
+    private async Task LoadAsync()
+    {
+        errorLabel = "";
+        try
+        {
+            users = await UserService.GetUsersAsync(search);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            errorLabel = $"Error: {e.Message}";
+        }
+    }
+}

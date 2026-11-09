@@ -1,0 +1,52 @@
+@page "/register"
+@inject IUserService UserService
+@inject NavigationManager NavMgr
+
+<PageTitle>Create user</PageTitle>
+
+<h1>Create user</h1>
+
+<div class="card form">
+    <label>User name:</label>
+    <input type="text" @bind="userName"/>
+    <label>Password:</label>
+    <input type="password" @bind="password"/>
+    @if (!string.IsNullOrEmpty(errorLabel))
+    {
+        <label class="error">@errorLabel</label>
+    }
+    @if (!string.IsNullOrEmpty(successLabel))
+    {
+        <label class="success">@successLabel</label>
+    }
+    <button @onclick="CreateAsync">Create user</button>
+</div>
+
+@code {
+    private string userName = "";
+    private string password = "";
+    private string errorLabel = "";
+    private string successLabel = "";
+
+    private async Task CreateAsync()
+    {
+        errorLabel = "";
+        successLabel = "";
+        try
+        {
+            UserDto created = await UserService.AddUserAsync(new CreateUserDto
+            {
+                UserName = userName,
+                Password = password
+            });
+            successLabel = $"User '{created.UserName}' created (id {created.Id}). You can now log in.";
+            userName = "";
+            password = "";
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            errorLabel = $"Error: {e.Message}";
+        }
+    }
+}

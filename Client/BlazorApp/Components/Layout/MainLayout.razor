@@ -1,0 +1,47 @@
+@inherits LayoutComponentBase
+@inject AuthenticationStateProvider AuthProvider
+@inject NavigationManager NavMgr
+
+<header class="topbar">
+    <a class="brand" href="/">Reddit Clone</a>
+    <nav>
+        <NavLink href="/" Match="NavLinkMatch.All">Home</NavLink>
+        <NavLink href="/posts" Match="NavLinkMatch.All">Posts</NavLink>
+        <NavLink href="/users">Users</NavLink>
+        <AuthorizeView>
+            <Authorized>
+                <NavLink href="/posts/create">New post</NavLink>
+            </Authorized>
+        </AuthorizeView>
+    </nav>
+    <div class="account">
+        <AuthorizeView>
+            <Authorized>
+                <span>Logged in as <strong>@context.User.Identity?.Name</strong></span>
+                <button class="secondary" @onclick="LogoutAsync">Log out</button>
+            </Authorized>
+            <NotAuthorized>
+                <NavLink href="/login">Log in</NavLink>
+                <NavLink href="/register">Register</NavLink>
+            </NotAuthorized>
+        </AuthorizeView>
+    </div>
+</header>
+
+<main class="content">
+    @Body
+</main>
+
+<div id="blazor-error-ui" data-nosnippet>
+    An unhandled error has occurred.
+    <a href="." class="reload">Reload</a>
+    <span class="dismiss">🗙</span>
+</div>
+
+@code {
+    private async Task LogoutAsync()
+    {
+        await ((SimpleAuthProvider)AuthProvider).LogoutAsync();
+        NavMgr.NavigateTo("/");
+    }
+}

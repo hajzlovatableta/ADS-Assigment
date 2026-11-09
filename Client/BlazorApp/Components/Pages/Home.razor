@@ -1,0 +1,21 @@
+@page "/"
+@inject NavigationManager NavMgr
+
+<PageTitle>Home</PageTitle>
+
+<h1>Reddit Clone</h1>
+
+<AuthorizeView>
+    <Authorized>
+        <h3>Hello, @context.User.Identity?.Name</h3>
+        <p>Browse the latest posts or write your own.</p>
+        <button @onclick='() => NavMgr.NavigateTo("posts")'>Browse posts</button>
+        <button class="secondary" @onclick='() => NavMgr.NavigateTo("posts/create")'>Write a post</button>
+    </Authorized>
+    <NotAuthorized>
+        <p>You are not logged in. You can still browse posts, but you need to log in to post or comment.</p>
+        <button @onclick='() => NavMgr.NavigateTo("login")'>Go to login</button>
+        <button class="secondary" @onclick='() => NavMgr.NavigateTo("register")'>Create a user</button>
+        <button class="secondary" @onclick='() => NavMgr.NavigateTo("posts")'>Browse posts</button>
+    </NotAuthorized>
+</AuthorizeView>

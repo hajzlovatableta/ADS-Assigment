@@ -1,0 +1,68 @@
+@page "/posts"
+@inject IPostService PostService
+@inject NavigationManager NavMgr
+
+<PageTitle>Posts</PageTitle>
+
+<h1>Posts</h1>
+
+<div class="filter">
+    <input type="text" placeholder="Title contains..." @bind="titleFilter"/>
+    <input type="text" placeholder="Author" @bind="authorFilter"/>
+    <button @onclick="LoadAsync">Filter</button>
+</div>
+
+@if (!string.IsNullOrEmpty(errorLabel))
+{
+    <p class="error">@errorLabel</p>
+}
+else if (posts is null)
+{
+    <p>Loading...</p>
+}
+else if (posts.Count == 0)
+{
+    <p>No posts yet.</p>
+}
+else
+{
+    <ul class="list">
+        @foreach (PostDto post in posts)
+        {
+            <li class="card clickable" @onclick='() => NavMgr.NavigateTo($"posts/{post.Id}")'>
+                <strong>@post.Title</strong>
+                <span class="muted">by @post.AuthorName</span>
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    [SupplyParameterFromQuery(Name = "author")]
+    public string? Author { get; set; }
+
+    private List<PostDto>? posts;
+    private string titleFilter = "";
+    private string authorFilter = "";
+    private string errorLabel = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        authorFilter = Author ?? "";
+        await LoadAsync();
+    }
+
+    private async Task LoadAsync()
+    {
+        errorLabel = "";
+        try
+        {
+            posts = await PostService.GetPostsAsync(titleFilter, authorFilter);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            errorLabel = $"Error: {e.Message}";
+        }
+    }
+}
