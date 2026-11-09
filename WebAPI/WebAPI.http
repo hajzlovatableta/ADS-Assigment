@@ -41,3 +41,15 @@ Content-Type: application/json
 
 ### Delete comment
 DELETE {{WebAPI_HostAddress}}/comments/1
+
+### Login (correct)
+POST {{WebAPI_HostAddress}}/auth/login
+Content-Type: application/json
+
+{ "userName": "anna", "password": "1234" }
+
+### Login (wrong password -> 401 Unauthorized)
+POST {{WebAPI_HostAddress}}/auth/login
+Content-Type: application/json
+
+{ "userName": "anna", "password": "wrong" }
